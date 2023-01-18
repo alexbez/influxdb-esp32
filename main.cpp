@@ -27,7 +27,7 @@ ESP8266WiFiMulti wifiMulti;
 #define OLED_RESET -1
 
 
-#define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
+#define TZ_INFO "EET,M3.5.0,M10.5.0/3"
 #define TIMESERVER1 "pool.ntp.org"
 #define TIMESERVER2 "time.nis.gov"
 
@@ -36,8 +36,8 @@ ESP8266WiFiMulti wifiMulti;
 
 Adafruit_AHTX0 aht;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert); 
-Point datapoint("Room data");
+InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert); // INFLUXDB_xxx are from credentials.h
+Point datapoint("Room data"); // Change the datapoint name if you run multiple sensors
 
 
 // Function prototypes
@@ -156,8 +156,8 @@ void loop()
   display.setCursor(0,20);
   display.print("Hum:  "); display.print(humidity); display.println(" %");
 
-  Serial.print("Temperature: ");Serial.print(temp);Serial.println(" C");
-  Serial.print("Humidity:    ");Serial.print(humidity);Serial.println(" %");
+  Serial.print("Temperature: ");Serial.print(temp);Serial.print(" C", );
+  Serial.print("Humidity: ");Serial.print(humidity);Serial.print(" %   ");
   display.display();
 
   datapoint.clearFields();
